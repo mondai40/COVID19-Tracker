@@ -1,0 +1,17 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-unused-vars": "warn",
+    "no-console": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": 0,
+    "react/prop-types": 0,
+    "react/jsx-props-no-spreading": 0
+  },
+  "env": {
+    "browser": true
+  }
+}
