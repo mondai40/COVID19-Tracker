@@ -15,7 +15,13 @@ function App() {
       await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          const countryNameAndIso2 = data.map((country) => {
+            return {
+              name: country.name,
+              value: country.countryInfo.iso2,
+            };
+          });
+          setCountries(countryNameAndIso2);
         });
     };
     getCountriesData();
