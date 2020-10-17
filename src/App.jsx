@@ -8,7 +8,7 @@ import './App.css';
 // https://disease.sh/docs/
 
 function App() {
-  const [countries, setCountries] = useState(['Japan', 'Korea', 'Canada']);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     const getCountriesData = async () => {
@@ -17,7 +17,7 @@ function App() {
         .then((data) => {
           const countryNameAndIso2 = data.map((country) => {
             return {
-              name: country.name,
+              name: country.country,
               value: country.countryInfo.iso2,
             };
           });
@@ -25,16 +25,20 @@ function App() {
         });
     };
     getCountriesData();
-  }, [countries]);
+  }, []);
 
   return (
     <div className="app">
       <div className="app__header">
         <h1>COVID-19 TRACKER</h1>
         <FormControl className="app__dropdown">
-          <Select>
-            {countries.map((country) => {
-              return <MenuItem value={country}>{country}</MenuItem>;
+          <Select variant="outlined" value="abc">
+            {countries.map((country, index) => {
+              return (
+                <MenuItem value={country.value} key={index}>
+                  {country.name}
+                </MenuItem>
+              );
             })}
             {/* <MenuItem value="world">World</MenuItem>
             <MenuItem value="Japan">Japan</MenuItem>
