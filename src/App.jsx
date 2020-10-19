@@ -23,10 +23,10 @@ import './App.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('Worldwide');
+  const [selectedCountry, setSelectedCountry] = useState('CA');
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
+  const [mapCenter, setMapCenter] = useState([60, -95]);
   const [mapZoom, setMapZoom] = useState(3);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState('cases');
