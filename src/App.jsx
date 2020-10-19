@@ -6,6 +6,7 @@ import {
   Card,
   CardContent,
 } from '@material-ui/core';
+import 'leaflet/dist/leaflet.css';
 
 import InfoBox from './InfoBox';
 import Map from './Map';
@@ -24,6 +25,8 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState('Worldwide');
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
 
   useEffect(() => {
     (async function getFirstCoutryInfo() {
@@ -111,7 +114,7 @@ function App() {
         </div>
 
         {/* Map */}
-        <Map />
+        <Map center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
