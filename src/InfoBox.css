@@ -1,16 +1,39 @@
 .infoBox {
   flex: 1;
+  cursor: pointer;
 }
 
 .infoBox:not(:last-child) {
   margin-right: 15px;
 }
 
-.infoBox__cases {
+.infoBox--selected {
+  border-top: 10px solid #cc1034;
+}
+.infoBox--cases {
+  border-color: #cc1034;
+}
+.infoBox--recovered {
+  border-color: #7dd71d;
+}
+.infoBox--deaths {
+  border-color: #fb4443;
+}
+
+.infoBox__number {
   color: #cc1034;
   font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
+}
+.infoBox__cases {
+  color: #cc1034;
+}
+.infoBox__recovered {
+  color: #7dd71d;
+}
+.infoBox__deaths {
+  color: #fb4443;
 }
 
 .infoBox__total {
