@@ -42,3 +42,15 @@
   font-size: 0.8rem !important;
   margin-top: 15px !important;
 }
+.infoBox__total::before {
+  content: '(';
+}
+.infoBox__total::after {
+  content: ')';
+}
+
+@media (max-width: 990px) {
+  .infoBox:not(:last-child) {
+    margin: 0 0 15px 0;
+  }
+}

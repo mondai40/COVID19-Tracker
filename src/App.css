@@ -53,4 +53,17 @@ body {
   .app {
     flex-direction: column;
   }
+  .app__header {
+    flex-direction: column;
+  }
+  .app__header h1 {
+    margin-bottom: 20px;
+  }
+  .app__dropdown {
+    width: 100%;
+  }
+
+  .app__stats {
+    flex-direction: column;
+  }
 }

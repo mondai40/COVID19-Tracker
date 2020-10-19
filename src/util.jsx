@@ -44,7 +44,10 @@ export const showDataOnMap = (data, casesType = 'cases') => {
           <div className="info-container">
             <div
               className="info-flag"
-              style={{ backgroundImage: `url(${country.countryInfo.flag})` }}
+              style={{
+                backgroundImage: `url(${country.countryInfo.flag})`,
+                backgroundPosition: 'center',
+              }}
             />
             <div className="info-name">{country.country}</div>
             <div className="info-confirmed">
