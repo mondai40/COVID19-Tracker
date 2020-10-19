@@ -27,6 +27,7 @@ function App() {
   const [tableData, setTableData] = useState([]);
   const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
   const [mapZoom, setMapZoom] = useState(3);
+  const [mapCountries, setMapCountries] = useState([]);
 
   useEffect(() => {
     (async function getFirstCoutryInfo() {
@@ -52,6 +53,8 @@ function App() {
           const sortedData = sortData(data);
           setTableData(sortedData);
           setCountries(countryNameAndIso2);
+
+          setMapCountries(data);
         });
     };
     getCountriesData();
@@ -117,7 +120,7 @@ function App() {
         </div>
 
         {/* Map */}
-        <Map center={mapCenter} zoom={mapZoom} />
+        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
       </div>
       <Card className="app__right">
         <CardContent>
