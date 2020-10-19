@@ -47,6 +47,21 @@ const options = {
   },
 };
 
+const casesTypeColors = {
+  cases: {
+    backgroundColor: 'rgba(204, 16, 52, 0.4)',
+    borderColor: '#CC1034',
+  },
+  recovered: {
+    backgroundColor: 'rgba(125, 215, 29, 0.4)',
+    borderColor: '#7dd71d',
+  },
+  deaths: {
+    backgroundColor: 'rgba(251, 68, 67, 0.4)',
+    borderColor: '#fb4443',
+  },
+};
+
 const buildChartData = (data, casesType = 'cases') => {
   const chartData = [];
   let lastDataPoint;
@@ -84,8 +99,8 @@ function LineGraph({ casesType = 'cases', className }) {
           data={{
             datasets: [
               {
-                backgroundColor: 'rgba(204, 16, 52, 0.5)',
-                borderColor: '#CC1034',
+                backgroundColor: casesTypeColors[casesType].backgroundColor,
+                borderColor: casesTypeColors[casesType].borderColor,
                 data: chartData,
               },
             ],

@@ -52,7 +52,7 @@ function App() {
               value: country.countryInfo.iso2,
             };
           });
-          const sortedData = sortData(data);
+          const sortedData = sortData(data, casesType);
           setTableData(sortedData);
           setCountries(countryNameAndIso2);
 
@@ -61,6 +61,11 @@ function App() {
     };
     getCountriesData();
   }, []);
+
+  useEffect(() => {
+    const sortedData = sortData(tableData, casesType);
+    setTableData(sortedData);
+  }, [casesType]);
 
   const onCountryChange = async (event) => {
     const coutryCode = event.target.value;
@@ -107,7 +112,7 @@ function App() {
           <InfoBox
             casesType="cases"
             active={casesType === 'cases'}
-            onClick={(e) => setCasesType('cases')}
+            onClick={() => setCasesType('cases')}
             title="Coronavirus Cases"
             cases={prettyPrintStat(countryInfo.todayCases)}
             total={prettyPrintStat(countryInfo.cases)}
@@ -115,7 +120,7 @@ function App() {
           <InfoBox
             casesType="recovered"
             active={casesType === 'recovered'}
-            onClick={(e) => setCasesType('recovered')}
+            onClick={() => setCasesType('recovered')}
             title="Recovered"
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             total={prettyPrintStat(countryInfo.recovered)}
@@ -123,7 +128,7 @@ function App() {
           <InfoBox
             casesType="deaths"
             active={casesType === 'deaths'}
-            onClick={(e) => setCasesType('deaths')}
+            onClick={() => setCasesType('deaths')}
             title="Deaths"
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={prettyPrintStat(countryInfo.deaths)}
@@ -141,8 +146,8 @@ function App() {
       <Card className="app__right">
         <CardContent>
           {/* Table */}
-          <h3>Live Cases by Country</h3>
-          <Table countries={tableData} />
+          <h3>Live {casesType} by Country</h3>
+          <Table countries={tableData} casesType={casesType} />
           {/* Graph */}
           <h3 className="app__graphTitle">Worldwide new {casesType}</h3>
           <LineGraph casesType={casesType} className="app__graph" />

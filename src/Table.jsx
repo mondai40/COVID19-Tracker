@@ -1,20 +1,23 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import numeral from 'numeral';
 
 import './Table.css';
 
-function Table({ countries }) {
+function Table({ countries, casesType = 'cases' }) {
   return (
-    <div className="table">
-      {countries.map(({ country, cases }, index) => (
-        <tr key={index}>
-          <td>{country}</td>
-          <td>
-            <strong>{numeral(cases).format('0,0')}</strong>
-          </td>
-        </tr>
-      ))}
-    </div>
+    <table className="table">
+      <tbody>
+        {countries.map((country, index) => (
+          <tr key={index}>
+            <td>{country.country}</td>
+            <td>
+              <strong>{numeral(country[casesType]).format('0,0')}</strong>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
