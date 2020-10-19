@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import numeral from 'numeral';
 import { Circle, Popup } from 'react-leaflet';
@@ -25,8 +26,6 @@ export const sortData = (data) => {
 // draw circles on the map with interactive tooltip(popup)
 export const showDataOnMap = (data, casesType = 'cases') => {
   return data.map((country) => {
-    console.log(country[casesType]);
-    console.log(casesTypeColors[casesType].multiplier);
     return (
       <Circle
         center={[country.countryInfo.lat, country.countryInfo.long]}
@@ -37,7 +36,24 @@ export const showDataOnMap = (data, casesType = 'cases') => {
           Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
         }
       >
-        <Popup>I'm a popup</Popup>
+        <Popup>
+          <div className="info-container">
+            <div
+              className="info-flag"
+              style={{ backgroundImage: `url(${country.countryInfo.flag})` }}
+            />
+            <div className="info-name">{country.country}</div>
+            <div className="info-confirmed">
+              Cases: {numeral(country.cases).format('0,0')}
+            </div>
+            <div className="info-recovered">
+              Recovered: {numeral(country.recovered).format('0,0')}
+            </div>
+            <div className="info-deaths">
+              Deaths: {numeral(country.deaths).format('0,0')}
+            </div>
+          </div>
+        </Popup>
       </Circle>
     );
   });
