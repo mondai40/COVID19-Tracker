@@ -116,10 +116,10 @@ function App() {
       <Card className="app__right">
         <CardContent>
           {/* Table */}
-          <h3>This is a table</h3>
+          <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           {/* Graph */}
-          <h3>This is a graph</h3>
+          <h3>Worldwide new cases</h3>
           <LineGraph />
         </CardContent>
       </Card>

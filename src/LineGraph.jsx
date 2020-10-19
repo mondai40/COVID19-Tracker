@@ -1,5 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
+import numeral from 'numeral';
+
+const options = {
+  legend: {
+    display: false,
+  },
+  elements: {
+    point: {
+      radius: 0,
+    },
+  },
+  maintainAspectRatio: false,
+  tooltips: {
+    mode: 'index',
+    intersect: false,
+    callbacks: {
+      label: function (tooltipItem, data) {
+        return numeral(tooltipItem.value).format('+0,0');
+      },
+    },
+  },
+  scales: {
+    xAxes: [
+      {
+        type: 'time',
+        time: {
+          format: 'MM/DD/YY',
+          tooltipFormat: 'll',
+        },
+      },
+    ],
+    yAxes: [
+      {
+        gridLines: {
+          display: false,
+        },
+        ticks: {
+          // Include a dollar sign in the ticks
+          callback: function (value, index, values) {
+            return numeral(value).format('0a');
+          },
+        },
+      },
+    ],
+  },
+};
 
 const buildChartData = (data, casesType = 'cases') => {
   const chartData = [];
@@ -17,7 +63,7 @@ const buildChartData = (data, casesType = 'cases') => {
   return chartData;
 };
 
-function LineGraph() {
+function LineGraph({ casesType = 'cases' }) {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
@@ -28,13 +74,24 @@ function LineGraph() {
           setChartData(buildChartData(data));
         });
     })();
-  }, []);
+  }, [casesType]);
 
   return (
     <div>
-      <h1>I'm a graph</h1>
-      {/* <Line data options /> */}
-      {console.log('hre', chartData)}
+      {chartData?.length > 0 && (
+        <Line
+          options={options}
+          data={{
+            datasets: [
+              {
+                backgroundColor: 'rgba(204, 16, 52, 0.5)',
+                borderColor: '#CC1034',
+                data: chartData,
+              },
+            ],
+          }}
+        />
+      )}
     </div>
   );
 }
