@@ -25,7 +25,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState('Worldwide');
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
+  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
   const [mapZoom, setMapZoom] = useState(3);
 
   useEffect(() => {
@@ -69,6 +69,9 @@ function App() {
       .then((data) => {
         setSelectedCountry(coutryCode);
         setCountryInfo(data);
+        console.log(data);
+        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
   };
 
