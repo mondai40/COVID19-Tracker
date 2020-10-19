@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
 import {
   FormControl,
@@ -137,8 +138,8 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
           {/* Graph */}
-          <h3>Worldwide new cases</h3>
-          <LineGraph />
+          <h3>Worldwide new {casesType}</h3>
+          <LineGraph casesType={casesType} />
         </CardContent>
       </Card>
     </div>
