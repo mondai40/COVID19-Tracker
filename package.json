@@ -7,11 +7,11 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "chart.js": "^2.9.4",
+    "chart.js": "2.9.4",
     "leaflet": "^1.7.1",
     "numeral": "^2.0.6",
     "react": "^16.14.0",
-    "react-chartjs-2": "^2.10.0",
+    "react-chartjs-2": "^2.11.1",
     "react-dom": "^16.14.0",
     "react-leaflet": "^2.7.0",
     "react-scripts": "3.4.3"
@@ -47,7 +47,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
-    "eslint-plugin-react-hooks": "4.0.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.1.2"
   }
 }

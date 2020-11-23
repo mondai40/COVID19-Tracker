@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import numeral from 'numeral';
 import { Circle, Popup } from 'react-leaflet';
@@ -29,9 +30,10 @@ export const prettyPrintStat = (stat) => {
 
 // draw circles on the map with interactive tooltip(popup)
 export const showDataOnMap = (data, casesType = 'cases') => {
-  return data.map((country) => {
+  return data.map((country, index) => {
     return (
       <Circle
+        key={index}
         center={[country.countryInfo.lat, country.countryInfo.long]}
         fillOpacity={0.4}
         color={casesTypeStyles[casesType].hex}
@@ -65,3 +67,36 @@ export const showDataOnMap = (data, casesType = 'cases') => {
     );
   });
 };
+
+const handleErrors = (response) => {
+  if (response.ok) {
+    return response;
+  }
+
+  switch (response.status) {
+    case 400:
+      throw Error('INVALID_TOKEN');
+    case 401:
+      throw Error('UNAUTHORIZED');
+    case 500:
+      throw Error('INTERNAL_SERVER_ERROR');
+    case 502:
+      throw Error('BAD_GATEWAY');
+    case 404:
+      throw Error('NOT_FOUND');
+    default:
+      throw Error('UNHANDLED_ERROR');
+  }
+};
+
+export const fetchWithErrorHandling = (url, options) =>
+  fetch(url, options)
+    // 1. error handling by network, connection.
+    .catch((e) => {
+      throw Error(e);
+    })
+    // 2. error handling by status code from a server
+    .then(handleErrors)
+    // 3. manupulate data
+    .then((response) => response.json())
+    .then((data) => data);

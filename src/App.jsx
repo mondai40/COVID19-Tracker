@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React, { useState, useEffect } from 'react';
@@ -14,7 +15,7 @@ import InfoBox from './InfoBox';
 import Map from './Map';
 import Table from './Table';
 import LineGraph from './LineGraph';
-import { sortData, prettyPrintStat } from './util';
+import { sortData, prettyPrintStat, fetchWithErrorHandling } from './util';
 
 import './App.css';
 
@@ -34,19 +35,24 @@ function App() {
 
   useEffect(() => {
     (async function getFirstCoutryInfo() {
-      await fetch('https://disease.sh/v3/covid-19/all')
-        .then((response) => response.json())
-        .then((data) => {
-          setCountryInfo(data);
-        });
+      try {
+        await fetchWithErrorHandling('https://disease.sh/v3/covid-19/all').then(
+          (data) => {
+            setCountryInfo(data);
+          }
+        );
+      } catch (e) {
+        console.log(e);
+      }
     })();
   }, []);
 
   useEffect(() => {
     const getCountriesData = async () => {
-      await fetch('https://disease.sh/v3/covid-19/countries')
-        .then((response) => response.json())
-        .then((data) => {
+      try {
+        await fetchWithErrorHandling(
+          'https://disease.sh/v3/covid-19/countries'
+        ).then((data) => {
           const countryNameAndIso2 = data.map((country) => {
             return {
               name: country.country,
@@ -59,6 +65,9 @@ function App() {
 
           setMapCountries(data);
         });
+      } catch (e) {
+        console.log(e);
+      }
     };
     getCountriesData();
   }, []);
@@ -75,15 +84,22 @@ function App() {
         ? 'https://disease.sh/v3/covid-19/all'
         : `https://disease.sh/v3/covid-19/countries/${coutryCode}`;
 
-    await fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
+    try {
+      await fetchWithErrorHandling(url).then((data) => {
         setSelectedCountry(coutryCode);
         setCountryInfo(data);
-        console.log(data);
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
-        setMapZoom(4);
+        // console.log(data);
+        if (coutryCode === 'Worldwide') {
+          setMapZoom(2);
+          setMapCenter([34.80746, -40.4796]);
+        } else {
+          setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+          setMapZoom(4);
+        }
       });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

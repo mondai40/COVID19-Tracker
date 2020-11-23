@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import numeral from 'numeral';
 
+import { fetchWithErrorHandling } from './util';
+
 const options = {
   legend: {
     display: false,
@@ -26,7 +28,7 @@ const options = {
       {
         type: 'time',
         time: {
-          format: 'MM/DD/YY',
+          parser: 'MM/DD/YY',
           tooltipFormat: 'll',
         },
       },
@@ -83,11 +85,15 @@ function LineGraph({ casesType = 'cases', className }) {
 
   useEffect(() => {
     (async function getDataForChart() {
-      await fetch('https://disease.sh/v3/covid-19/historical/all?lastdays=120')
-        .then((response) => response.json())
-        .then((data) => {
+      try {
+        await fetchWithErrorHandling(
+          'https://disease.sh/v3/covid-19/historical/all?lastdays=120'
+        ).then((data) => {
           setChartData(buildChartData(data, casesType));
         });
+      } catch (e) {
+        console.log(e);
+      }
     })();
   }, [casesType]);
 
