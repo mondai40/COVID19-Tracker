@@ -93,8 +93,8 @@ function App() {
           setMapZoom(2);
           setMapCenter([34.80746, -40.4796]);
         } else {
-          setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
           setMapZoom(4);
+          setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
         }
       });
     } catch (e) {
